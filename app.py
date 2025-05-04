@@ -231,7 +231,7 @@ def inject_progress():
 
 # Run the app in debug mode when this script is executed directly
 if __name__ == '__main__':
-    app.run() #remove debug=True before deployment (production mode)
+    app.run(host='0.0.0.0') #remove debug=True before deployment (production mode)
 
 #DEPLOYMENT:
 #WILL BE USING RENDER TO DEPLOY WEBSITE APPLICATION
