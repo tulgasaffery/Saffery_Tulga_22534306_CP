@@ -1,0 +1,303 @@
+/*Tulga Saffery 22534306*/
+
+body {
+    margin: 0;               /* Remove default browser margin */
+    min-height: 100vh;       /* Ensure body covers full viewport height */
+    background-color: #ebe9e1; /* Light background for the page */
+    font-family: Verdana, Geneva, Tahoma, sans-serif; /* sans-serif font */
+}
+
+/* Reset box sizing for predictable layouts */
+* {
+    box-sizing: border-box;
+}
+
+/* Navbar (header) styles */
+.header {
+    overflow: hidden;        /* Clear floats */
+    background-color: #ebe9e1; /* Match page background */
+    padding: 20px 10px;      /* Vertical and horizontal padding */
+}
+
+/* Style for all links inside header */
+.header a {
+    float: left;             /* Align links horizontally */
+    color: #d6536d;          /* Link color */
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;   /* Remove underline */
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;      /* Rounded corners on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover */
+}
+
+/* Logo link style */
+.header a.logo {
+    font-size: 25px;         /* Larger font for logo */
+    font-weight: bold;
+    color: #e43d12;          /* Distinct logo color */
+}
+
+/* Hover effect for nav links */
+.header a:hover {
+    background-color: #ffa2b6;
+    color: #ebe9e1;
+}
+
+/* Container for right-aligned links */
+.header-right {
+    float: right;
+}
+
+/* Responsive navbar: stack links on small screens */
+@media screen and (max-width: 500px) {
+    .header a {
+        float: none;         /* Cancel float */
+        display: block;      /* Full-width block */
+        text-align: left;    /* Left-align text */
+    }
+    .header-right {
+        float: none;
+    }
+}
+
+/* About Us section */
+#about_us {
+    display: flex;           /* Center content horizontally */
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+#about_us .card {
+    color: #d6536d;          /* Text color for card in this section */
+}
+
+/* Headings color override in About Us */
+#about_us h1,
+#about_us h2 {
+    color: #e43d12;
+}
+
+/* Feature list: remove bullets and indent */
+#about_us ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 1em 0;
+}
+
+/* Spacing between feature items */
+#about_us li {
+    margin-bottom: 0.75em;
+    line-height: 1.5;
+}
+
+/* Get Started button style */
+.getstarted {
+    display: inline-block;
+    background-color: #d6536d;
+    color: #ebe9e1;
+    padding: 12px 24px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+/* Our Modules section */
+#our_modules {
+    text-align: center;
+    color: #d6536d;
+}
+#our_modules h1,
+#our_modules h2 {
+    color: #e43d12;
+}
+
+/* Grid layout for arithmetic cards */
+.arithmetic {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 20px;               /* Space between grid items */
+}
+.arithmetic .card p {
+    line-height: 1.4;
+}
+
+/* Column container style (redundant box-sizing applied) */
+.column {
+    box-sizing: border-box;
+}
+
+/* Collapse to single column on narrow screens */
+@media screen and (max-width: 600px) {
+    .arithmetic {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Progress Dashboard / Medals */
+#progress_medals {
+    text-align: center;
+    padding: 40px 20px;
+    color: white;
+}
+#progress_medals h1,
+#progress_medals h3 {
+    color: #e43d12;
+}
+
+/* Card styling reused for dashboard */
+.card {
+    background-color: #ffa2b6;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Badge list flex layout */
+.badge-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+.badge-item {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.badge-icon {
+    width: 128px;
+    height: 128px;
+    margin: 0 0.5em;
+}
+/* Dim locked badges */
+.badge-item.locked {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+/* Select Topic page styles (#select_section)*/
+#select_section {
+    display: flex;           /* Center content horizontally */
+    justify-content: center;
+    padding: 40px 20px;
+}
+.select_card {
+    background-color: #ffa2b6;
+    padding: 20px;
+    border-radius: 16px;
+    width: 100%;
+    /*max-width: 400px;*/        /* Constrain width */
+    text-align: center;
+    height: auto;
+}
+#select_section h1 {
+    color: #e43d12;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#select_section select {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 0.75em;
+    border: 1px solid #d6536d;
+    border-radius: 4px;
+    margin-bottom: 1em;
+}
+#select_section button {
+    display: inline-block;
+    background-color: #d6536d;
+    color: #ebe9e1;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+/* Question page styles (.question-card) */
+.question-card {
+    background-color: #ffa2b6;
+    padding: 20px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+.question-card label {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e43d12;
+    margin-bottom: 0.5em;
+}
+.question-card input[type="number"] {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 0.75em;
+    margin-bottom: 1em;
+    border: 1px solid #e43d12;
+    border-radius: 8px;
+}
+.question-card button {
+    display: inline-block;
+    background-color: #d6536d;
+    color: #ebe9e1;
+    padding: 12px 24px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+.flash-list,
+.achievements ul {
+    list-style: none;        /* Remove bullets */
+    padding: 0;
+    margin: 0.5em 0;
+    color: #ebe9e1;
+}
+.progress_controls {
+    text-align: center;
+    margin-top: 1.5em;
+}
+.change-between-topic {
+    display: inline-block;
+    background-color: #d6536d;
+    color: #ebe9e1;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+/* Done page styles (#done-section) */
+
+#done-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+.done-card {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    padding: 2em;
+}
+

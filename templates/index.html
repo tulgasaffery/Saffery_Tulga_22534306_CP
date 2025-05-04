@@ -1,0 +1,126 @@
+<!--templates/index.html-->
+<!--Tulga Saffery - 22534306-->
+{#Child template for the homepage of ITS for Primary Maths Application. Extends base.html and fills in title and content blocks with sections:
+-About Us (intro and key features)
+- Our Modules (math topic cards)
+- Progress Dashboard (badges and stats)    
+#}
+
+{% extends "base.html" %}
+
+{#Override the page title block #}
+{%block title %}Welcome - ITS for Primary Maths {% endblock %}
+
+{%block content %}
+
+<!-- ABOUT US SECTION-->
+ <section id="about_us">
+    <div class="card">
+        <h1><strong>Solve, Score & Soar in Maths</strong></h1>
+        {# Introductary Paragraphs describing system benefits(Key features)#}
+
+        <p>Unlock your maths potential by embarking on a fun and engaging math journey with easy-to-follow lessons designed for primary school students and anyone eager to improve. Our structured, beginner-friendly modules make learning maths enjoyable and approachable, helping you build confidence and master key skills at your own pace.</p>
+        <p>ITS for the primary mathematics is an <em>Intelligent Tutoring System</em> designed to help young learners build a strong foundation in mathematics. By combining proven pedagogical strategies with AI-driven adaptability, my platform ensures each student gets just the right level of challenge.</p>
+
+        <h2><strong>Key Features</strong></h2>
+        <ul>
+            {# List of system key features #}
+            <li>
+                <strong>Adaptive Learning:</strong>The system monitors each student's performance and automatically ajusts question difficulty - ramping up when they're ready, or providing extra practice when they need it
+            </li>
+
+            <li>
+                <strong>Streak Tracking & Achievements:</strong> Every correct answer builds a streak. Hit milestones (5 in a row, 10 in a row, etc.) to earn fun badges and keep motivation high.
+            </li>
+
+            <li>
+                <strong>Instant Feedback:</strong> Explanations are provided right after a wrong answer, so misconceptions get cleared up immediately.
+            </li>
+
+            <li>
+                <strong>Timed Practice:</strong> Questions are timed to help students improve both accuracy and speed—perfect for getting ready for quizzes.
+            </li>
+
+            <li>
+                <strong>Progress Dashboard:</strong> Track total correct answers, current streak, and badges earned all in one place.                
+            </li>
+        </ul>
+
+        {#Call-to-action button linking quiz to topic selection #}
+        <a href="{{ url_for('choose_filters') }}" class="getstarted">Get Started</a>
+    </div>
+ </section>
+
+ <!--Our Modules Section-->
+ <section id="our_modules">
+    <h1>Our Modules</h1>
+    <h2>Arithmetic</h2>
+
+    <div class="arithmetic">
+        {#Four cards for basic arithmetic operations #}
+        <div class="column" id="box_add">
+            <div class="card">
+                <h2>Addition</h2>
+                <p>Addition is the process of combining two or more quantities to find their total. It's one of the four basic operations, fundamental for everyday calculations. (Symbol: +)</p>
+            </div>
+        </div>
+
+        <div class="column" id="box_minus">
+            <div class="card">
+                <h2>Subtraction</h2>
+                <p>Subtraction is finding the difference between two quantities—essentially taking away one amount from another. It's one of the four basic operations. (Symbol: -)</p>
+            </div>
+        </div>
+
+        <div class="column" id="box_multi">
+            <div class="card">
+                <h2>Multiplication</h2>
+                <p>Multiplication combines equal groups of items quickly—essentially 'repeated addition'. The numbers multiplied are called 'factors' and the result is the 'product'. It's the opposite of division. (Symbol: x)</p>
+            </div>
+        </div>
+
+        <div class="column" id="box_div">
+            <div class="card">
+                <h2>Division</h2>
+                <p>Division splits a total into equal parts or determines how many times one number fits into another. It's the inverse of multiplication. In this website, we dont cover decimals so for all the division questions, it will just be to the closest whole number. (Symbol: ÷)</p>
+            </div>
+        </div>
+
+    </div>
+ </section>
+
+ <!--Progress Dashboard Section-->
+ <section id="progress_medals">
+    <div class="card">
+        <h1>Progress Dashboard</h1>
+
+        <!--Achievements list: loops through ACHIEVEMENTS config and applies locked style if not earned -->
+        <h3>Your Achievements:</h3>
+        <ul>
+            {% for key, spec in ACHIEVEMENTS.items() %}
+                <li class="badge-item {% if key not in session.achievements %}locked{% endif %}">
+                    <img
+                    src="{{url_for('static', filename='images/badges/' ~ spec.badge) }}"
+                    alt="{{ spec.label }}"
+                    class="badge-icon"
+                    >
+                    <span>{{ spec.label }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!--User statistics block showing average time, total correct, and current streak-->
+        <div class="stats">
+            <h3>Your Statistics</h3>
+            {% if average_time is not none %}
+                <p><strong>Average Response Time: </strong>{{ average_time|round(1) }} seconds</p>
+            {% else %}
+                <p>No questions earned yet.</p>
+            {% endif %}
+            <p><strong>Total Current Answers:</strong> {{ session.correct_count }}</p>
+            <p><strong>Current Streak:</strong> {{ session.streak }}</p>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

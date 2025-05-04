@@ -1,0 +1,91 @@
+<!-- templates/question.html -->
+<!--Tulga Saffery - 22534306-->
+{# Question page template for ITS for Primary Maths application.
+    Extends base.html and provides:
+        - Display of current topic and difficulty
+        - Question text 
+        - Numeric answer form with timer
+        - Flash messages (feedback)
+        - Achievements summary 
+        - Progress controls (score and change topic)
+#}
+{% extends "base.html" %}
+
+{# Override the page title with topic and difficulty context #}
+{% block title %}Question &mdash; {{ topic }} /{{ difficulty }}{% endblock %}
+
+{% block content %}
+
+<div class="card question-card">
+    {# Header showing current topic and difficulty level #}
+    <h1>[{{ topic }} /{{ difficulty }}]</h1>
+    {# Display the question text #}
+    <p><strong> {{question }}</strong></p>
+
+    {# Answer submission form posting to the /answer route #}
+    <form id="answer-form" action="{{ url_for('answer') }}" method="post">
+        <label for="answer">Your answer:</label>
+        <!--inputmode="numeric": mobile devices show numeric keyboard
+        pattern="\d+": only allow whole numbers
+        step="1": enforce integer stopping-->
+        <input type="number" id="answer" name="answer" required inputmode="numeric" pattern="\d+" step="1">
+        {# Hidden field to capture time spent from the timer script #}
+        <input type="hidden" name="time_spent" id="time_spent" value="0">
+        <button type="submit">Submit</button>
+    </form>
+
+    {# Display elapsed time in seconds #}
+    <p>Time: <span id="timer">0</span> seconds</p>
+
+    {# Flash messages for correct/incorrect feedback and achievements unlocked #}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flash-list">
+            {% for msg in messages %}
+            <li> {{ msg }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {# Show list of achievements earned so far, if any #}
+    {% if session.achievements %}
+    <div class="achievements">
+        <h3>Your Achievements</h3>
+        <ul>
+            {% for key in session.achievements %}
+            <li>{{ ACHIEVEMENTS[key].label }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    {# controls for quiz progress: display score and change topic link #}
+    <div class="progress_controls">
+        <p><strong>Correct so far: </strong>{{ session.correct_count }}</p>
+        <p><a href="{{ url_for('choose_filters') }}" class="change-between-topic">Change Topic</a></p>
+    </div>
+</div>
+
+{# Timer Script: starts on load, updates every second, stops and records time on form submit #}
+<script>
+    // Record start time when the page loads
+    let startTime = Date.now();
+    const timerEl = document.getElementById('timer');
+    const timeInput = document.getElementById('time_spent');
+
+    //Update timer display every second
+    const interval = setInterval(() => {
+    const secs = Math.floor((Date.now() - startTime) / 1000);
+    timerEl.textContent = secs;
+    }, 1000);
+
+    //On form submit, stop timer and set hidden input to elapsed time (1 decimal)
+    document.getElementById('answer-form').addEventListener('submit', () => {
+    clearInterval(interval);
+    const elapsed = (Date.now() - startTime) / 1000;
+    timeInput.value = elapsed.toFixed(1);
+    });
+</script>
+
+{% endblock %}

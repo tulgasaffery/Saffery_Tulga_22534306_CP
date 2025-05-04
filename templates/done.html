@@ -1,0 +1,23 @@
+<!-- templates/done.html -->
+<!--Tulga Saffery - 22534306-->
+{#
+Template displayed when the user has answered all questions for the selected topic and difficulty.
+Extends base.html and shows completion message, score, and link to choose another question set.
+#}
+{%extends "base.html" %}
+
+{# override page title to reflect completion status #}
+{% block title %}All Done &mdash; {{ topic }} / {{ difficulty }}{% endblock %}
+
+{% block content %}
+<section id="done-section">
+    <div class="card done-card">
+        {# Heading showing that this question set is complete #}
+        <h1>You've completed all "{{ topic }} / {{ difficulty }}" questions!</h1>
+        {# Display total correct answers out of the set #}
+        <p>You Got {{ total }} correct. </p>
+        {# Link to restart quiz selection for a new topic/difficulty #}
+        <a href="{{ url_for('choose_filters') }}" class="getstarted">Pick another set</a>
+    </div>
+</section>
+{% endblock %}

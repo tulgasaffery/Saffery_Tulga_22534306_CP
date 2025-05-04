@@ -1,0 +1,33 @@
+<!-- templates/select.html -->
+<!--Tulga Saffery - 22534306-->
+{#Topic Selection page for ITS for Primary Maths Application.
+Extends base.html and provides a form for choosing the quiz topic.
+Includes a required dropdown and submit button to start a quiz.#}
+
+{% extends "base.html" %}
+
+{# Override the page title to prompt user to pick a topic #}
+{% block title %}Pick a Topic{% endblock %}
+
+{% block content %}
+<section id="select_section">
+    <div class="select_card">
+    {#Heading for the topic selection area #}
+    <h1>Pick a Topic</h1>
+
+    {# Form posts selected topic to the choose-filters route via POST #}
+    <form action="{{ url_for('choose_filters') }}" method="post">
+        {# Dropdown list of topics passed in from the controller #}
+        <select id="topic" name="topic" required>
+        {# Iterate over avaliable topics and display as titled options #}
+        {% for t in topics %}
+            <option value="{{ t }}">{{ t.title() }}</option>
+        {% endfor %}
+        </select>
+
+        {# Button to submit form and begin quiz #}    
+        <button type="submit">Start Quiz</button>
+    </form>
+    </div>
+</section>
+{% endblock %}
